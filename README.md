@@ -1,2 +1,2 @@
 # go-api-practice
-This project is based on the G02 combat training of the Go Technology Forum. I will build an API including authentication, authentication and other functions from scratch. By learning this project, I believe that I can quickly have a preliminary understanding of API development in Go language
+这个项目基于Go技术论坛的G02实战训练。将会从头开始搭建一个包含认证、鉴权等功能的API，通过学习这个项目，我相信可以很快对Go语言的API开发有初步的认识
