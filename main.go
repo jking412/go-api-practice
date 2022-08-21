@@ -18,12 +18,13 @@ func main() {
 	flag.StringVar(&env, "env", "", "")
 	flag.Parse()
 	config.InitConfig(env)
+	config.Get("app.port")
 
 	router := gin.New()
 
 	bootstrap.SetupRoute(router)
 
-	err := router.Run(":3000")
+	err := router.Run(":" + config.Get("app.port"))
 	if err != nil {
 		fmt.Println(err)
 	}
