@@ -18,9 +18,10 @@ func main() {
 	flag.StringVar(&env, "env", "", "")
 	flag.Parse()
 	config.InitConfig(env)
-	config.Get("app.port")
 
 	router := gin.New()
+
+	bootstrap.SetupDB()
 
 	bootstrap.SetupRoute(router)
 

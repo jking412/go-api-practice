@@ -54,6 +54,7 @@ func loadEnv(envSuffix string) {
 
 	viper.WatchConfig()
 }
+
 func Env(envName string, defaultValue ...interface{}) interface{} {
 	if len(defaultValue) > 0 {
 		return internalGet(envName, defaultValue[0])
