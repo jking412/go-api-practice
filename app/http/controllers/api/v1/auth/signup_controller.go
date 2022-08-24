@@ -5,6 +5,7 @@ import (
 	"github.com/gin-gonic/gin"
 	v1 "go-api-practice/app/http/controllers/api/v1"
 	"go-api-practice/app/models/user"
+	"go-api-practice/app/requests"
 	"net/http"
 )
 
@@ -13,11 +14,8 @@ type SignupController struct {
 }
 
 func (sc *SignupController) IsPhoneExist(c *gin.Context) {
-	type PhoneExistRequest struct {
-		Phone string `json:"phone"`
-	}
 
-	request := PhoneExistRequest{}
+	request := requests.SignupPhoneExistRequest{}
 
 	if err := c.ShouldBindJSON(&request); err != nil {
 		c.AbortWithStatusJSON(http.StatusUnprocessableEntity, gin.H{
@@ -26,6 +24,15 @@ func (sc *SignupController) IsPhoneExist(c *gin.Context) {
 
 		fmt.Println(err.Error())
 
+		return
+	}
+
+	errs := requests.ValidatePhoneExist(&request, c)
+
+	if len(errs) > 0 {
+		c.AbortWithStatusJSON(http.StatusUnprocessableEntity, gin.H{
+			"error": errs,
+		})
 		return
 	}
 
