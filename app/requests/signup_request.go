@@ -9,7 +9,7 @@ type SignupPhoneExistRequest struct {
 	Phone string `json:"phone,omitempty" valid:"phone"`
 }
 
-func ValidatePhoneExist(data interface{}, c *gin.Context) map[string][]string {
+func ValidateSignupPhoneExist(data interface{}, c *gin.Context) map[string][]string {
 	// 自定义验证规则
 	rules := govalidator.MapData{
 		"phone": []string{"required", "digits:11"},
@@ -23,16 +23,7 @@ func ValidatePhoneExist(data interface{}, c *gin.Context) map[string][]string {
 		},
 	}
 
-	// 配置初始化
-	opts := govalidator.Options{
-		Data:          data,
-		Rules:         rules,
-		TagIdentifier: "valid", // 模型中的 Struct 标签标识符
-		Messages:      messages,
-	}
-
-	// 开始验证
-	return govalidator.New(opts).ValidateStruct()
+	return validate(data, rules, messages)
 }
 
 type SignupEmailExistRequest struct {
@@ -56,14 +47,5 @@ func ValidateSignupEmailExist(data interface{}, c *gin.Context) map[string][]str
 		},
 	}
 
-	// 配置初始化
-	opts := govalidator.Options{
-		Data:          data,
-		Rules:         rules,
-		TagIdentifier: "valid", // 模型中的 Struct 标签标识符
-		Messages:      messages,
-	}
-
-	// 开始验证
-	return govalidator.New(opts).ValidateStruct()
+	return validate(data, rules, messages)
 }
