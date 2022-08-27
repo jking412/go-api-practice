@@ -2,10 +2,17 @@ package main
 
 import (
 	"fmt"
-	"go-api-practice/pkg/config"
 	"testing"
 )
 
+const (
+	a = iota - 1
+	b
+	c
+)
+
 func Test(t *testing.T) {
-	fmt.Println(config.Get("id"))
+	fmt.Println(a)
+	fmt.Println(b)
+	fmt.Println(c)
 }

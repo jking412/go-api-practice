@@ -7,6 +7,7 @@ import (
 	"go-api-practice/bootstrap"
 	btsconfig "go-api-practice/config"
 	"go-api-practice/pkg/config"
+	"go-api-practice/pkg/logger"
 )
 
 func init() {
@@ -19,11 +20,17 @@ func main() {
 	flag.Parse()
 	config.InitConfig(env)
 
+	bootstrap.SetupLogger()
+
+	logger.Dump("test")
+
 	router := gin.New()
 
 	bootstrap.SetupDB()
 
 	bootstrap.SetupRoute(router)
+
+	gin.SetMode(gin.ReleaseMode)
 
 	err := router.Run(":" + config.Get("app.port"))
 	if err != nil {
