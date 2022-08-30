@@ -26,3 +26,4 @@ func Connect(dbConfig gorm.Dialector, _logger gormlogger.Interface) {
 	}
 
 }
+

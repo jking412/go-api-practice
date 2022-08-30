@@ -7,7 +7,6 @@ import (
 	"go-api-practice/bootstrap"
 	btsconfig "go-api-practice/config"
 	"go-api-practice/pkg/config"
-	"go-api-practice/pkg/logger"
 )
 
 func init() {
@@ -22,11 +21,11 @@ func main() {
 
 	bootstrap.SetupLogger()
 
-	logger.Dump("test")
-
 	router := gin.New()
 
 	bootstrap.SetupDB()
+
+	bootstrap.SetupRedis()
 
 	bootstrap.SetupRoute(router)
 
