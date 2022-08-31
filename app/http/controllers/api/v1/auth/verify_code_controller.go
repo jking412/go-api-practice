@@ -5,7 +5,7 @@ import (
 	v1 "go-api-practice/app/http/controllers/api/v1"
 	"go-api-practice/pkg/captcha"
 	"go-api-practice/pkg/logger"
-	"net/http"
+	"go-api-practice/pkg/response"
 )
 
 type VerifyCodeController struct {
@@ -17,7 +17,7 @@ func (vc *VerifyCodeController) ShowCaptcha(c *gin.Context) {
 
 	logger.LogIf(err)
 
-	c.JSON(http.StatusOK, gin.H{
+	response.JSON(c, gin.H{
 		"captcha_id":    id,
 		"captcha_image": b64s,
 	})
