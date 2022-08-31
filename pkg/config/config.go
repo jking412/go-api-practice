@@ -89,3 +89,11 @@ func GetInt(path string, defaultValue ...interface{}) int {
 func GetBool(path string, defaultValue ...interface{}) bool {
 	return cast.ToBool(internalGet(path, defaultValue...))
 }
+
+func GetInt64(path string, defaultValue ...interface{}) int64 {
+	return cast.ToInt64(internalGet(path, defaultValue...))
+}
+
+func GetFloat64(path string, defaultValue ...interface{}) float64 {
+	return cast.ToFloat64(internalGet(path, defaultValue...))
+}
