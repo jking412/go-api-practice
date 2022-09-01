@@ -97,3 +97,7 @@ func GetInt64(path string, defaultValue ...interface{}) int64 {
 func GetFloat64(path string, defaultValue ...interface{}) float64 {
 	return cast.ToFloat64(internalGet(path, defaultValue...))
 }
+
+func GetStringMapString(path string, defaultValue ...interface{}) map[string]string {
+	return cast.ToStringMapString(internalGet(path, defaultValue...))
+}
