@@ -1,10 +1,12 @@
 package verifycode
 
 import (
+	"fmt"
 	"go-api-practice/helpers"
 	"go-api-practice/pkg/app"
 	"go-api-practice/pkg/config"
 	"go-api-practice/pkg/logger"
+	"go-api-practice/pkg/mail"
 	"go-api-practice/pkg/redis"
 	"go-api-practice/pkg/sms"
 	"strings"
@@ -45,6 +47,28 @@ func (vc *VerifyCode) SendSMS(phone string) bool {
 	})
 }
 
+func (vc *VerifyCode) SendEmail(email string) error {
+	code := vc.generateVerifyCode(email)
+
+	if !app.IsProduction() && strings.HasSuffix(email, config.GetString("verifycode.debug_email_suffix")) {
+		return nil
+	}
+
+	content := fmt.Sprintf("<h1>您的 Email 验证码是 %v </h1>", code)
+
+	mail.NewMailer().Send(mail.Email{
+		From: mail.From{
+			Address: config.GetString("mail.from.address"),
+			Name:    config.GetString("mail.from.name"),
+		},
+		To:      []string{email},
+		Subject: "Email 验证码",
+		HTML:    []byte(content),
+	})
+
+	return nil
+}
+
 func (vc *VerifyCode) CheckAnswer(key string, answer string) bool {
 	logger.DebugJSON("验证码", "检查验证码", map[string]string{key: answer})
 	if !app.IsProduction() &&
@@ -57,6 +81,7 @@ func (vc *VerifyCode) CheckAnswer(key string, answer string) bool {
 
 func (vc *VerifyCode) generateVerifyCode(key string) string {
 	code := helpers.RandomNumber(config.GetInt("verifycode.code_length"))
+
 	if app.IsLocal() {
 		code = config.GetString("verifycode.debug_code")
 	}

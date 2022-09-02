@@ -1,5 +1,5 @@
 package mail
 
 type Driver interface {
-	Send(mail Email, config map[string][]string) bool
+	Send(mail Email, config map[string]string) bool
 }

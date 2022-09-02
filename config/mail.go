@@ -15,8 +15,8 @@ func init() {
 			},
 
 			"from": map[string]interface{}{
-				"address": config.Env("MAIL_FROM_ADDRESS", "gohub@example.com"),
-				"name":    config.Env("MAIL_FROM_NAME", "Gohub"),
+				"address": config.Env("MAIL_FROM_ADDRESS", "go-api-practice@example.com"),
+				"name":    config.Env("MAIL_FROM_NAME", "Go-API-Practice"),
 			},
 		}
 	})

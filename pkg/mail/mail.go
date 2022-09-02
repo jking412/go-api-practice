@@ -1,6 +1,9 @@
 package mail
 
-import "sync"
+import (
+	"go-api-practice/pkg/config"
+	"sync"
+)
 
 type From struct {
 	Address string
@@ -33,6 +36,6 @@ func NewMailer() *Mailer {
 	return internalMailer
 }
 
-func (mailer *Mailer) Send(email Email, config map[string][]string) bool {
-	return mailer.Driver.Send(email, config)
+func (mailer *Mailer) Send(email Email) bool {
+	return mailer.Driver.Send(email, config.GetStringMapString("mail.smtp"))
 }
