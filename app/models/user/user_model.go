@@ -3,6 +3,7 @@ package user
 
 import (
 	"go-api-practice/app/models"
+	"go-api-practice/pkg/database"
 )
 
 // User 用户模型
@@ -15,4 +16,8 @@ type User struct {
 	Password string `json:"-"`
 
 	models.CommonTimestampsField
+}
+
+func (user *User) Create() {
+	database.DB.Create(&user)
 }
