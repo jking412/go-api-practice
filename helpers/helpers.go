@@ -4,6 +4,7 @@ import (
 	"crypto/rand"
 	"fmt"
 	"io"
+	mathrand "math/rand"
 	"reflect"
 	"time"
 )
@@ -55,4 +56,14 @@ func FirstElement(args []string) string {
 		return args[0]
 	}
 	return ""
+}
+
+func RandomString(length int) string {
+	mathrand.Seed(time.Now().UnixNano())
+	var letters = []rune("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ")
+	b := make([]rune, length)
+	for i := range b {
+		b[i] = letters[mathrand.Intn(len(letters))]
+	}
+	return string(b)
 }
