@@ -1,12 +1,14 @@
 package main
 
 import (
-	"flag"
 	"fmt"
-	"github.com/gin-gonic/gin"
+	"github.com/spf13/cobra"
+	"go-api-practice/app/cmd"
 	"go-api-practice/bootstrap"
 	btsconfig "go-api-practice/config"
 	"go-api-practice/pkg/config"
+	"go-api-practice/pkg/console"
+	"os"
 )
 
 func init() {
@@ -14,25 +16,28 @@ func init() {
 }
 
 func main() {
-	var env string
-	flag.StringVar(&env, "env", "", "")
-	flag.Parse()
-	config.InitConfig(env)
+	var rootCmd = &cobra.Command{
+		Use:   "go-api-practice",
+		Short: "A simple forum project",
+		Long:  `Default will run "serve" command, you can use "-h" flag to see all subcommands`,
+		PersistentPreRun: func(command *cobra.Command, args []string) {
+			config.InitConfig(cmd.Env)
 
-	bootstrap.SetupLogger()
+			bootstrap.SetupLogger()
 
-	router := gin.New()
+			bootstrap.SetupDB()
 
-	bootstrap.SetupDB()
+			bootstrap.SetupRedis()
+		},
+	}
 
-	bootstrap.SetupRedis()
+	rootCmd.AddCommand(cmd.CmdServe)
 
-	bootstrap.SetupRoute(router)
+	cmd.RegisterDefaultCommand(rootCmd, cmd.CmdServe)
 
-	gin.SetMode(gin.ReleaseMode)
+	cmd.RegisterGlobalFlags(rootCmd)
 
-	err := router.Run(":" + config.Get("app.port"))
-	if err != nil {
-		fmt.Println(err)
+	if err := rootCmd.Execute(); err != nil {
+		console.Exit(fmt.Sprintf("Failed to run app with %v: %s", os.Args, err.Error()))
 	}
 }

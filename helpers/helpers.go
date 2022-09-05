@@ -49,3 +49,10 @@ func RandomNumber(length int) string {
 	}
 	return string(b)
 }
+
+func FirstElement(args []string) string {
+	if len(args) > 0 {
+		return args[0]
+	}
+	return ""
+}
