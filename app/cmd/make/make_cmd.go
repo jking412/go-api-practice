@@ -6,7 +6,7 @@ import (
 	"go-api-practice/pkg/console"
 )
 
-var cmdMakeCMD = &cobra.Command{
+var CmdMakeCMD = &cobra.Command{
 	Use:   "cmd",
 	Short: "Create a new command",
 	Run:   runMakeCMD,

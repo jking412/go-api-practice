@@ -29,7 +29,8 @@ var CmdMake = &cobra.Command{
 
 func init() {
 	CmdMake.AddCommand(
-		cmdMakeCMD,
+		CmdMakeCMD,
+		CmdMakeModel,
 	)
 }
 
