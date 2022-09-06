@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/spf13/cobra"
 	"go-api-practice/app/cmd"
+	make2 "go-api-practice/app/cmd/make"
 	"go-api-practice/bootstrap"
 	btsconfig "go-api-practice/config"
 	"go-api-practice/pkg/config"
@@ -35,6 +36,7 @@ func main() {
 		cmd.CmdServe,
 		cmd.CmdKey,
 		cmd.CmdPlay,
+		make2.CmdMake,
 	)
 
 	cmd.RegisterDefaultCommand(rootCmd, cmd.CmdServe)
