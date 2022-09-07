@@ -1,6 +1,10 @@
 package file
 
-import "os"
+import (
+	"os"
+	"path/filepath"
+	"strings"
+)
 
 func Put(data []byte, to string) error {
 	err := os.WriteFile(to, data, 0644)
@@ -15,4 +19,7 @@ func Exists(fileToCheck string) bool {
 		return false
 	}
 	return true
+}
+func FileNameWithoutExtension(fileName string) string {
+	return strings.TrimSuffix(fileName, filepath.Ext(fileName))
 }

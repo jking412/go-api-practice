@@ -36,6 +36,7 @@ func main() {
 		cmd.CmdServe,
 		cmd.CmdKey,
 		cmd.CmdPlay,
+		cmd.CmdMigrate,
 		make2.CmdMake,
 	)
 
